@@ -95,7 +95,10 @@ export default {
       if(params.type === 'coord') {
         let coord = coordStr2Arr(params.data)
         this.showMarker(coord)
-        this.mapObj.setCenter(coord)
+        this.mapObj.flyTo({
+          center: coord,
+          zoom: 10
+        })
       } else if (params.type === 'geohashCode') {
         let coord = geohash.decode(params.data)
         if (coord) {
