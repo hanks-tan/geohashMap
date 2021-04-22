@@ -15,7 +15,7 @@ module.exports = {
   },
   lintOnSave: process.env.NODE_ENV !== 'production' ? 'default' : false,
   runtimeCompiler: true,
-  productionSourceMap: true, // 生产环境是否生成 sourceMap 文件
+  productionSourceMap: false, // 生产环境是否生成 sourceMap 文件
   // css: {
   //   requireModuleExtension: false,
   //   extract: true, 
