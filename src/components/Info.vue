@@ -94,6 +94,7 @@ export default {
       text-align: left;
       background-color: white;
       box-shadow: 5px 5px 5px #888;
+      max-width: 100%;
       .tools{
         float: right;
         .btn-item{
