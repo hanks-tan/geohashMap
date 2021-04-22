@@ -100,6 +100,7 @@ export default {
 <style lang="less" scoped>
 .searchBox{
   width: 25%;
+  margin: 0.5rem;
   .searchResult{
     background-color: white;
     border-radius: 3px;
@@ -119,6 +120,11 @@ export default {
         float: right;
       }
     }
+  }
+}
+@media only screen and (max-width: 768px) {
+  .searchBox{
+    width: calc(100% - 1rem);
   }
 }
 </style>

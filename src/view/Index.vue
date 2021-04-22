@@ -150,15 +150,14 @@ export default {
   .info{
     z-index: 100;
     position: absolute;
-    // top: 10px;
-    bottom: 10px;
-    right: 10px;
+    bottom: 0;
+    right: 0;
   }
   .searchBar{
     z-index: 100;
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 0;
+    left: 0;
   }
 }
 </style>

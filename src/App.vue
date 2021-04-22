@@ -1,19 +1,22 @@
 <template>
   <div id="app">
     <Main></Main>
-    <div class="icp">
+    <Foot></Foot>
+    <!-- <div class="icp">
       <a href="http://beian.miit.gov.cn/">粤ICP备2020129319号</a>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import Main from './view/Index'
+import Foot from './components/Foot'
 
 export default {
   name: 'app',
   components: {
-    Main
+    Main,
+    Foot
   }
 }
 </script>
@@ -32,18 +35,5 @@ body{
   color: #2c3e50;
   height: 100vh;
   width: 100%;
-  .icp{
-    position: absolute;
-    font-size: 14px;
-    bottom: 10px;
-    z-index: 1000;
-    left: 0px;
-    right: 0px;
-    a{
-      padding: 5px;
-      background-color: #ecf5ffa1;
-      border-radius: 3px
-    }
-  }
 }
 </style>

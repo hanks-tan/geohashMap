@@ -1,6 +1,6 @@
 import geohash from './latlon'
 import geojson from 'geojson'
-
+const key = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 export function coordStr2Arr (coordStr, sep) {
   if(!sep) {
     sep = ','
@@ -58,4 +58,12 @@ export function clipboard (text) {
     document.execCommand('copy')
   }
   document.body.removeChild(textarea)
+}
+
+export function translateWC (str) { 
+  return encodeURIComponent(btoa(str))
+}
+
+export function translateCW (str) {
+  return decodeURIComponent(atob(str))
 }

@@ -73,14 +73,14 @@ export default {
 
 <style lang="less" scoped>
   .mapInfo{
+    margin: 0.5rem;
     .setting{
       font-size: 13px;
       position: absolute;
-      right: 0px;
-      top: -50px;
+      right: 0;
+      top: -2.5rem;
       background-color: white;
       padding: 0.2rem;
-      margin: 0;
       border-radius: 3px;
       padding-left: 0.5rem;
       .map-input{
