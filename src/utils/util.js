@@ -12,10 +12,16 @@ export function coordStr2Arr (coordStr, sep) {
 }
 
 export function isCoord (text) {
-  if (text.indexOf(',') > -1) {
-    return true
+  // if (text.indexOf(',') > -1) {
+  //   return true
+  // }
+  if (!text instanceof String) {
+    return false
   }
-  return false
+  text = text.replaceAll(' ', '')
+  let reg = /^[-\+]?\d+(\.\d+)?\,[-\+]?\d+(\.\d+)?$/
+  let r = text.match(reg)
+  return r
 }
 
 export function isGeohashCode (text) {

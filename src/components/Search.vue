@@ -1,6 +1,9 @@
 <template>
   <div class="searchBox">
-    <el-input placeholder="搜geohash编码、经纬度" v-model="input" class="input-with-select">
+    <el-input 
+      placeholder="搜geohash编码、经纬度" 
+      v-model="input" 
+      class="input-with-select">
       <el-button type="primary" 
         slot="append"
         icon="el-icon-search" 
