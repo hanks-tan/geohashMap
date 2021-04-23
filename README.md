@@ -1,24 +1,11 @@
-# geohash-map
+# geohash原理及算法，参考
+https://en.wikipedia.org/wiki/Geohash
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+# 本项目geohash编码及相关算法，参考
+https://github.com/rzanato/geohashgrid
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# geohash 相关包
+## node
+  1、ngeohash https://github.com/sunng87/node-geohash
