@@ -56,14 +56,19 @@ export function pointObjList2GeoJson (pointObjList, xName, yName) {
 }
 
 export function clipboard (text) {
-  const textarea = document.createElement('textarea')
-  document.body.appendChild(textarea)
-  textarea.value = text
-  textarea.select()
-  if (document.execCommand) {
-    document.execCommand('copy')
+  navigator.clipboard.writeText(text)
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text)
+  } else {
+    const textarea = document.createElement('textarea')
+    document.body.appendChild(textarea)
+    textarea.value = text
+    textarea.select()
+    if (document.execCommand) {
+      document.execCommand('copy')
+    }
+    document.body.removeChild(textarea)
   }
-  document.body.removeChild(textarea)
 }
 
 export function translateWC (str) { 

@@ -29,12 +29,6 @@ module.exports = {
     hotOnly: false,
     open: true, // 配置自动启动浏览器
   },
-  chainWebpack: (config) => {
-    config.plugin('extract-css').tap((args) => [{
-      filename: 'css/[name].[contenthash].css',
-      chunkFilename: 'css/[name].[contenthash].css'
-    }])
-  },
   configureWebpack: {
     resolve: {
       extensions: ['*', '.js', '.vue', '.json'],
@@ -43,10 +37,6 @@ module.exports = {
         '@': path.resolve('src'),
       }
     },
-    devtool: 'source-map',
-    output: {
-      filename: 'js/[name].[contenthash].js',
-      chunkFilename: 'js/[name].[contenthash].js'
-    }
+    devtool: 'source-map'
   }
 }
