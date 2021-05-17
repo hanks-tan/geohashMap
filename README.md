@@ -9,3 +9,8 @@ https://github.com/rzanato/geohashgrid
 # geohash 相关包
 ## node
   1、ngeohash https://github.com/sunng87/node-geohash
+
+# 项目预览地址
+ 
+ http://geohash.gogmap.com
+ 
