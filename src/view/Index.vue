@@ -29,7 +29,14 @@ export default {
   data () {
     return {
       mapObj: null,
-      marker: null,
+      markers: {
+        searchMarker: null,
+        evtMarker: null
+      },
+      markerColors: {
+        searchMarker: '#f74e4e',
+        evtMarker: '#3FB1CE'
+      },
       boxSourceId: 'boxSource'
     }
   },
@@ -89,12 +96,12 @@ export default {
       if (this.$refs.tools) {
         this.$refs.tools.coord = evt.lngLat.toArray().join(',')
       }
-      this.showMarker(evt.lngLat)
+      this.showMarker(evt.lngLat, 'evtMarker')
     },
     mapSearchHandle (params) {
       if(params.type === 'coord') {
         let coord = coordStr2Arr(params.data)
-        this.showMarker(coord)
+        this.showMarker(coord, 'searchMarker')
         this.mapObj.flyTo({
           center: coord,
           zoom: 10
@@ -119,20 +126,29 @@ export default {
         this.mapObj.getSource(this.boxSourceId).setData(json)
       }
     },
-    showMarker (coord) {
-      if (!this.marker) {
-        this.marker = new mapboxgl.Marker().setLngLat(coord).addTo(this.mapObj)
+    showMarker (coord, key) {
+      if (!this.markers[key]) {
+        this.markers[key] = new mapboxgl.Marker({
+          color: this.markerColors[key]
+        }).setLngLat(coord).addTo(this.mapObj)
       } else {
-        this.marker.setLngLat(coord)
+        this.markers[key].setLngLat(coord)
       }
     },
-    clearPopHandle () {
-      if (this.mapObj.getSource(this.boxSourceId)) {
-        const code = 'wq517dd923zz'
-        const b = geohash.bounds(code)
-        const extent = [b.sw.lon, b.sw.lat, b.ne.lon, b.ne.lat]
-        const json = box2Geojson(extent)
-        this.mapObj.getSource(this.boxSourceId).setData(json)
+    clearPopHandle (data) {
+      if (data.type === 'geohashCode') {
+        if (this.mapObj.getSource(this.boxSourceId)) {
+          // geohash边界置为一个非常小的矩形
+          const code = 'wq517dd923zz'
+          const b = geohash.bounds(code)
+          const extent = [b.sw.lon, b.sw.lat, b.ne.lon, b.ne.lat]
+          const json = box2Geojson(extent)
+          this.mapObj.getSource(this.boxSourceId).setData(json)
+        }
+      } else if (data.type === 'coord') {
+        if (this.markers[data.type]) {
+          this.markers[data.type].remove()
+        }
       }
     }
   }

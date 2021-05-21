@@ -16,7 +16,9 @@
       <div>
         <i class="el-icon-close close" @click="closeHandle"></i>
       </div>
-      <div class="content">
+      <div
+        v-if="searchType === 'geohashCode'" 
+        class="content">
         <li>东经: {{bound.ne.lon}}°</li>
         <li>西经: {{bound.sw.lon}}°</li>
         <li>北纬: {{bound.ne.lat}}°</li>
@@ -27,6 +29,17 @@
         </Copy>
         <li>中心点：{{`${center.lon}°, ${center.lat}°`}}</li>
       </div>
+      <div 
+        v-else-if="searchType === 'coord'"
+        class="content">
+        <span>
+         geohash编码：{{searchTextResult}}
+        </span>
+        <Copy 
+          :textStr=info
+          class="copyBar">
+        </Copy>
+      </div>
     </div>
   </div>
 </template>
@@ -34,7 +47,8 @@
 <script>
 import {
   isCoord,
-  isGeohashCode
+  isGeohashCode,
+  coordStr2Arr
 } from '../utils/util'
 import geohash from '../utils/latlon'
 import Copy from './Copy'
@@ -44,7 +58,9 @@ export default {
       input: '',
       bound: {},
       center: [],
-      boxInfoVisible: false
+      boxInfoVisible: false,
+      searchType: '',
+      searchTextResult: ''
     }
   },
   components: {
@@ -52,11 +68,16 @@ export default {
   },
   computed: {
     info () {
-      return `东经: ${this.bound.ne.lon}°\n` + 
-      `西经: ${this.bound.sw.lon}°\n` + 
-      `北纬: ${this.bound.ne.lat}°\n` + 
-      `南纬: ${this.bound.sw.lat}°\n` + 
-      `中心点：${this.center.lon}°, ${this.center.lat}°`
+      if (this.searchType === 'geohashcode') {
+        return `东经: ${this.bound.ne.lon}°\n` + 
+          `西经: ${this.bound.sw.lon}°\n` + 
+          `北纬: ${this.bound.ne.lat}°\n` + 
+          `南纬: ${this.bound.sw.lat}°\n` + 
+          `中心点：${this.center.lon}°, ${this.center.lat}°`
+      } else if (this.searchType === 'coord') {
+        this.searchTextResult
+      }
+      return ''
     }
   },
   watch: {
@@ -71,28 +92,31 @@ export default {
     searchHandle () {
       if (this.input) {
         if(isCoord(this.input)) {
-          this.$emit('search', {
-            type: 'coord',
-            data: this.input
-          })
+          this.searchType = 'coord'
         } else if (isGeohashCode(this.input)) {
-          this.$emit('search', {
-            type: 'geohashCode',
-            data: this.input
-          })
-          this.showBoxInfo(this.input)
+          this.searchType = 'geohashCode'
         }
+        this.showBoxInfo(this.input, this.searchType)
+        this.$emit('search', {
+          type: this.searchType,
+          data: this.input
+        })
       }
     },
-    showBoxInfo (hash) {
-      this.bound = geohash.bounds(hash)
-      this.center = geohash.decode(hash)
+    showBoxInfo (data, type) {
+      if (type === 'coord') {
+        let coord = coordStr2Arr(data)
+        this.searchTextResult = geohash.encode(coord[1], coord[0])
+      } else if (type === 'geohashCode') {
+        this.bound = geohash.bounds(data)
+        this.center = geohash.decode(data)
+      }
       this.boxInfoVisible = true
     },
     closeHandle () {
       this.boxInfoVisible = false
       this.$emit('close', {
-        type: 'geohashCode',
+        type: this.searchType,
         data: this.input
       })
     }
@@ -119,6 +143,9 @@ export default {
       list-style: none;
       text-align: left;
       padding: 0.5rem;
+      margin-top: 1rem;
+      padding-right: 1rem;
+      padding-top: 1rem;
       .copyBar{
         float: right;
       }
