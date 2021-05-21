@@ -3,6 +3,7 @@
     <el-input 
       placeholder="搜geohash编码、经纬度" 
       v-model="input" 
+      @change="searchHandle"
       class="input-with-select">
       <el-button type="primary" 
         slot="append"
@@ -115,10 +116,7 @@ export default {
     },
     closeHandle () {
       this.boxInfoVisible = false
-      this.$emit('close', {
-        type: this.searchType,
-        data: this.input
-      })
+      this.$emit('close')
     }
   }
 }
@@ -143,7 +141,6 @@ export default {
       list-style: none;
       text-align: left;
       padding: 0.5rem;
-      margin-top: 1rem;
       padding-right: 1rem;
       padding-top: 1rem;
       .copyBar{

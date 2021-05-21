@@ -136,19 +136,16 @@ export default {
       }
     },
     clearPopHandle (data) {
-      if (data.type === 'geohashCode') {
-        if (this.mapObj.getSource(this.boxSourceId)) {
-          // geohash边界置为一个非常小的矩形
-          const code = 'wq517dd923zz'
-          const b = geohash.bounds(code)
-          const extent = [b.sw.lon, b.sw.lat, b.ne.lon, b.ne.lat]
-          const json = box2Geojson(extent)
-          this.mapObj.getSource(this.boxSourceId).setData(json)
-        }
-      } else if (data.type === 'coord') {
-        if (this.markers[data.type]) {
-          this.markers[data.type].remove()
-        }
+      if (this.markers[data.type]) {
+        this.markers[data.type].remove()
+      }
+      if (this.mapObj.getSource(this.boxSourceId)) {
+        // geohash边界置为一个非常小的矩形
+        const code = 'wq517dd923zz'
+        const b = geohash.bounds(code)
+        const extent = [b.sw.lon, b.sw.lat, b.ne.lon, b.ne.lat]
+        const json = box2Geojson(extent)
+        this.mapObj.getSource(this.boxSourceId).setData(json)
       }
     }
   }
