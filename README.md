@@ -1,8 +1,12 @@
-# geohash原理及算法，参考
+# geohash原理及算法
+
+参考
 https://en.wikipedia.org/wiki/Geohash
 
 
-# 本项目geohash编码及相关算法，参考
+# 本项目geohash编码及相关算法
+
+参考
 https://github.com/rzanato/geohashgrid
 
 

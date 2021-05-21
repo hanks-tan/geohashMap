@@ -2,9 +2,6 @@
   <div id="app">
     <Main></Main>
     <Foot></Foot>
-    <!-- <div class="icp">
-      <a href="http://beian.miit.gov.cn/">粤ICP备2020129319号</a>
-    </div> -->
   </div>
 </template>
 
