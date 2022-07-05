@@ -2,6 +2,7 @@
 <template>
 <div class="main">
   <div class="map" id="map"></div>
+  <GH></GH>
   <Search
     @search="mapSearchHandle"
     @close="clearPopHandle"
@@ -25,6 +26,7 @@ import {
   box2Geojson
 } from '../utils/util'
 import geohash from '../utils/latlon'
+import GH from '../components/Github.vue'
 export default {
   data () {
     return {
@@ -42,7 +44,8 @@ export default {
   },
   components: {
     Info,
-    Search
+    Search,
+    GH
   },
   mounted () {
     this.init()
